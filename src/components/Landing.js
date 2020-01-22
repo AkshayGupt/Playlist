@@ -19,8 +19,9 @@ class Landing extends Component {
         this.onVideoEnd = this.onVideoEnd.bind(this);
         this.deleteVideo = this.deleteVideo.bind(this);
         this.onEndVideo = this.onEndVideo.bind(this);
-        this.reorderVideoUp=this.reorderVideoUp.bind(this);
-        this.reorderVideoDown=this.reorderVideoDown.bind(this);
+        this.reorderVideoUp = this.reorderVideoUp.bind(this);
+        this.reorderVideoDown = this.reorderVideoDown.bind(this);
+        this.reset = this.reset.bind(this);
     }
 
 
@@ -28,32 +29,37 @@ class Landing extends Component {
     handleChange(event) {
         this.setState({ link: event.target.value })
     }
- 
-   
+
+
     //Adds the new link to playlist
     handleSubmit(event) {
 
-     
-        // if (url != undefined || url != '') {
-        //     var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
-        //     var match = url.match(regExp);
-        //     if (match && match[2].length == 11) {
-        //         // Do anything for being valid
-        //         // if need to change the url to embed url then use below line
-        //         $('#ytplayerSide').attr('src', 'https://www.youtube.com/embed/' + match[2] + '?autoplay=0');
-        //     }
-        //     else {
-        //         // Do anything for not being valid
-        //     }
-        // }
-
         const url = this.state.link;
-        const play = this.state.playlist.map((link, key) => link);
-        const newSong = { url: url, isOn: false };
-        play.push(newSong);
-        this.setState({ playlist: play })
-        this.setState({ link: " " });
-        
+
+        if (url.includes("www.youtube.com")) {
+            console.log("Success")
+            if (url != undefined || url != '') 
+            {
+                var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+                var match = url.match(regExp);
+                if (match && match[2].length == 11) {
+                    const play = this.state.playlist.map((link, key) => link);
+                    const newSong = { url: url, isOn: false };
+                    play.push(newSong);
+                    this.setState({ playlist: play })
+                    this.setState({ link: " " });
+                    // console.log("Success");
+                }
+                else {
+                    alert("Please Check the Url again!");
+                }
+            }
+        }
+        else
+            alert("Please Check the Url again!");
+
+        // const url = this.state.link;
+
         event.preventDefault();
     }
 
@@ -64,7 +70,7 @@ class Landing extends Component {
         const current = play[id.key];//New line added
         this.setState({ current });
         play.splice(id.key, 1);
-  
+
         this.setState({ playlist: play });
 
 
@@ -98,35 +104,36 @@ class Landing extends Component {
         }
     }
 
-    reorderVideoUp(id){
+    reorderVideoUp(id) {
 
         // console.log(id);
-        if(id.key !== 0)
-        {
+        if (id.key !== 0) {
             const play = this.state.playlist.map((link, key) => link);
-            const upper=play[id.key-1];
-            const lower=play[id.key];
-            play[id.key]=upper;
-            play[id.key-1]=lower;
-            this.setState({playlist:play});
+            const upper = play[id.key - 1];
+            const lower = play[id.key];
+            play[id.key] = upper;
+            play[id.key - 1] = lower;
+            this.setState({ playlist: play });
         }
     }
-    reorderVideoDown(id){
+    reorderVideoDown(id) {
 
         // console.log(id);
         const play = this.state.playlist.map((link, key) => link);
-        const n=play.length;
-        if(id.key !== n-1)
-        {
-           
-            const upper=play[id.key];
-            const lower=play[id.key+1];
-            play[id.key]=lower;
-            play[id.key+1]=upper;
-            this.setState({playlist:play});
+        const n = play.length;
+        if (id.key !== n - 1) {
+
+            const upper = play[id.key];
+            const lower = play[id.key + 1];
+            play[id.key] = lower;
+            play[id.key + 1] = upper;
+            this.setState({ playlist: play });
         }
     }
 
+    reset(){
+        this.setState({playlist:[],link:""})
+    }
     render() {
 
         return (
@@ -134,9 +141,10 @@ class Landing extends Component {
                 <Grid>
                     <Cell col={7}>
                         <div className="input-link" >
-                            <h3>Add link:</h3>
+                            <h3 style={{fontFamily:"Roboto"}}>Add link:</h3>
+                            {/* <hr style={{borderTop:"5px solid green",width:"70%",marginLeft:"auto",marginRight:"auto"}}></hr> */}
                             <form onSubmit={this.handleSubmit} >
-                                <input placeholder="   Add...." style={{ width: "300px", borderWidth: "2px", height: "2rem", }} type="text" name="ytlink" value={this.state.link} onChange={this.handleChange} ></input>
+                                <input placeholder="   Add...." style={{ width: "300px", borderWidth: "2px", height: "2rem",marginBottom:" 3rem" }} type="text" name="ytlink" value={this.state.link} onChange={this.handleChange} ></input>
                                 <button type="submit" style={{ borderWidth: "2px", height: "35px", width: "30px" }}><i class="fas fa-plus"></i></button>
                             </form>
                         </div>
@@ -145,7 +153,7 @@ class Landing extends Component {
 
 
                     <Cell col={5} className='second-col'>
-                        <Playlist playlist={this.state.playlist} videoStart={this.onVideoStart} videoEnd={this.onVideoEnd} deleteVideo={this.deleteVideo} reorderVideoUp={this.reorderVideoUp} reorderVideoDown={this.reorderVideoDown}/>
+                        <Playlist playlist={this.state.playlist} videoStart={this.onVideoStart} videoEnd={this.onVideoEnd} deleteVideo={this.deleteVideo} reorderVideoUp={this.reorderVideoUp} reorderVideoDown={this.reorderVideoDown} reset={this.reset} />
                     </Cell>
                 </Grid>
             </div>
