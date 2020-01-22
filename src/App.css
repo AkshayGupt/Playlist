@@ -3,6 +3,9 @@
   text-align: center;
   margin:auto;
 }
+.input-link h3{
+  /* font-family:Arial, Helvetica, sans-serif; */
+}
 body{
   background: #ADA996;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996);  /* Chrome 10-25, Safari 5.1-6 */

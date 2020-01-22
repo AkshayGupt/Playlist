@@ -16,7 +16,7 @@ class Playlist extends Component {
                     
                     this.props.playlist.map( (link,key) => {
                        
-                        return<ListItem style={{marginLeft:"5%",marginBottom:"4px",height:"10%",width:"100%",opacity:"0.8" }}>
+                        return<ListItem style={{marginLeft:"5%",marginBottom:"4px",height:"10%",width:"80%",opacity:"0.8" }}>
                              <button className="icon" onClick={()=>this.props.deleteVideo({key})}><i class="fas fa-minus"></i></button>
                             <ListItemContent>
                           
@@ -26,6 +26,9 @@ class Playlist extends Component {
                            
                             </div>
                             </ListItemContent>
+                            
+                            <button className="icon-up" onClick={()=>this.props.reorderVideoUp({key})}><i class="fas fa-arrow-up"></i></button>  
+                            <button className="icon-down" onClick={()=>this.props.reorderVideoDown({key})}><i class="fa fa-arrow-down"></i></button>  
                             </ListItem>
                     })
                 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Cell, List, ListItem, ListItemContent } from 'react-mdl';
+import { Grid, Cell } from 'react-mdl';
 import Playlist from './Playlist';
 import Video from './Video';
 
@@ -19,6 +19,8 @@ class Landing extends Component {
         this.onVideoEnd = this.onVideoEnd.bind(this);
         this.deleteVideo = this.deleteVideo.bind(this);
         this.onEndVideo = this.onEndVideo.bind(this);
+        this.reorderVideoUp=this.reorderVideoUp.bind(this);
+        this.reorderVideoDown=this.reorderVideoDown.bind(this);
     }
 
 
@@ -57,17 +59,12 @@ class Landing extends Component {
 
     //When Video is selected to play
     onVideoEnd(id) {
+
         const play = this.state.playlist.map((link, key) => link);
         const current = play[id.key];//New line added
         this.setState({ current });
         play.splice(id.key, 1);
-        if (play.length !== 0) {
-            const topVid = play[0];
-            // topVid.isOn=true;
-            play.shift();
-            play.unshift(topVid);
-        }
-
+  
         this.setState({ playlist: play });
 
 
@@ -101,16 +98,45 @@ class Landing extends Component {
         }
     }
 
+    reorderVideoUp(id){
+
+        // console.log(id);
+        if(id.key !== 0)
+        {
+            const play = this.state.playlist.map((link, key) => link);
+            const upper=play[id.key-1];
+            const lower=play[id.key];
+            play[id.key]=upper;
+            play[id.key-1]=lower;
+            this.setState({playlist:play});
+        }
+    }
+    reorderVideoDown(id){
+
+        // console.log(id);
+        const play = this.state.playlist.map((link, key) => link);
+        const n=play.length;
+        if(id.key !== n-1)
+        {
+           
+            const upper=play[id.key];
+            const lower=play[id.key+1];
+            play[id.key]=lower;
+            play[id.key+1]=upper;
+            this.setState({playlist:play});
+        }
+    }
+
     render() {
 
         return (
             <div className="landing-grid">
                 <Grid>
                     <Cell col={7}>
-                        <div className="input-link"  >
+                        <div className="input-link" >
                             <h3>Add link:</h3>
                             <form onSubmit={this.handleSubmit} >
-                                <input placeholder="Add...." style={{ width: "300px", borderWidth: "2px", height: "2rem", }} type="text" name="ytlink" value={this.state.link} onChange={this.handleChange} ></input>
+                                <input placeholder="   Add...." style={{ width: "300px", borderWidth: "2px", height: "2rem", }} type="text" name="ytlink" value={this.state.link} onChange={this.handleChange} ></input>
                                 <button type="submit" style={{ borderWidth: "2px", height: "35px", width: "30px" }}><i class="fas fa-plus"></i></button>
                             </form>
                         </div>
@@ -119,7 +145,7 @@ class Landing extends Component {
 
 
                     <Cell col={5} className='second-col'>
-                        <Playlist playlist={this.state.playlist} videoStart={this.onVideoStart} videoEnd={this.onVideoEnd} deleteVideo={this.deleteVideo} />
+                        <Playlist playlist={this.state.playlist} videoStart={this.onVideoStart} videoEnd={this.onVideoEnd} deleteVideo={this.deleteVideo} reorderVideoUp={this.reorderVideoUp} reorderVideoDown={this.reorderVideoDown}/>
                     </Cell>
                 </Grid>
             </div>
