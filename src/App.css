@@ -4,21 +4,12 @@
   margin:auto;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-
-.input-link h3{
- 
-}
-
 body{
-  background: #ADA996;  /* fallback for old browsers */
+  background: #ADA996;
   background: -webkit-linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   
 }
-/* .playlist-grid{
-  background:orange;
-} */
-
 .icon{
   margin:2rem;
 }
@@ -27,4 +18,6 @@ body{
   background: black;
   height:100%;
   opacity: 0.8;
+  width:95%;
+  float:right;
 }
