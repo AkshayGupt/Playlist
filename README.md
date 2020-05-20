@@ -12,12 +12,12 @@ This project is built on ReactJS and the state is managed using Redux.
 ### Other Projects
 
  - [MyPortfolio](https://AkshayGupt.github.io/portfolio)
- - [Dev Connector](https://github.com/AkshayGupt/DevConnector) (Backend Ready)
+ - [myStore](https://github.com/AkshayGupt/myStore)
  - [Store Management System using Java (CLI)](https://github.com/AkshayGupt/store-management-system)
 
 
  #### Contact Information
 
-> E-mail: 189301019.akshay@gmail.com
+
 > LinkedIn: [LinkedIn](https://www.linkedin.com/in/akshay-gupta-3a5087172/)
-> Mobile: 7004473349
+> 
