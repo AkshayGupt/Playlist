@@ -4,7 +4,7 @@ Live Link: [Playlist](https://AkshayGupt.github.io/Playlist/)
 ## About
 
 Playlist is a React based web application focused on building playlists of youtube videos.
-This project is built on ReactJS and the state is managed using Redux.
+This project is built on ReactJS.
 
 ![Playlist](screenshot.png)
 <hr />
